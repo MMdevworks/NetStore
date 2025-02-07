@@ -26,10 +26,15 @@ namespace NetCoreStore.Controllers
             return View();
         }
 
-        // create category in db
+        // create category in db, ensure Title Case 
         [HttpPost]
         public IActionResult Create(Category obj)
         {
+            if (!string.IsNullOrWhiteSpace(obj.Name))
+            {
+                obj.Name = string.Join(" ", obj.Name.Split(' ').Select(word => char.ToUpper(word[0]) + word.Substring(1).ToLower()));
+            }
+
             if (ModelState.IsValid)
             {
                 _db.Categories.Add(obj);
@@ -37,6 +42,74 @@ namespace NetCoreStore.Controllers
                 return RedirectToAction("Index");
             }
             return View();
+        }
+
+        // ---- Edit ----
+
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            Category? categoryFromDb = _db.Categories.Find(id);
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+            }
+
+            return View(categoryFromDb);
+        }
+
+        // create category in db, ensure Title Case 
+        [HttpPost]
+        public IActionResult Edit(Category obj)
+        {
+            if (!string.IsNullOrWhiteSpace(obj.Name))
+            {
+                obj.Name = string.Join(" ", obj.Name.Split(' ').Select(word => char.ToUpper(word[0]) + word.Substring(1).ToLower()));
+            }
+
+            if (ModelState.IsValid)
+            {
+                _db.Categories.Update(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+        // ---- Delete ----
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            Category? categoryFromDb = _db.Categories.Find(id);
+
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+            }
+
+            return View(categoryFromDb);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteCategory(int? id)
+        {
+            Category obj = _db.Categories.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            _db.Categories.Remove(obj);
+            _db.SaveChanges();
+            return RedirectToAction("Index");          
         }
     }
 }
