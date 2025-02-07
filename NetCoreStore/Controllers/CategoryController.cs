@@ -20,9 +20,19 @@ namespace NetCoreStore.Controllers
             return View(objCategoryList);
         }
 
+        // show create category view
         public IActionResult Create()
         {
             return View();
+        }
+
+        // create category in db
+        [HttpPost]
+        public IActionResult Create(Category obj)
+        {
+            _db.Categories.Add(obj);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
