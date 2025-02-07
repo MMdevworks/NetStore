@@ -19,5 +19,10 @@ namespace NetCoreStore.Controllers
             // pass it to view
             return View(objCategoryList);
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }
