@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreStore", "NetCoreStor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetStore.DataAccess", "NetStore.DataAccess\NetStore.DataAccess.csproj", "{E584614F-EB79-4526-A6EA-7C8909E7EAC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NextStore.Models", "NextStore.Models\NextStore.Models.csproj", "{57AE3A7F-9ADB-4FBB-B3C3-C2A8AD48824D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetStore.Models", "NextStore.Models\NetStore.Models.csproj", "{57AE3A7F-9ADB-4FBB-B3C3-C2A8AD48824D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetStore.Utility", "NetStore.Utility\NetStore.Utility.csproj", "{929920D5-6968-48B7-8A55-02634A9EC94D}"
 EndProject

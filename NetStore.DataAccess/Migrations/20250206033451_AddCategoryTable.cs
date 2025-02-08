@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace NetCoreStore.Migrations
+namespace NetStore.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class AddCategoryTable : Migration

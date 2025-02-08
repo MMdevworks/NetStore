@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NetCoreStore.Models;
+using NetStore.Models;
 
-namespace NetCoreStore.Data
+
+namespace NetStore.DataAccess.Data
 {
     public class ApplicationDbContext : DbContext
     {

@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using NetCoreStore.Data;
+using NetStore.DataAccess.Data;
 
 #nullable disable
 
-namespace NetCoreStore.Migrations
+namespace NetStore.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20250206033451_AddCategoryTable")]

@@ -15,4 +15,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NetStore.DataAccess\NetStore.DataAccess.csproj" />
+    <ProjectReference Include="..\NetStore.Utility\NetStore.Utility.csproj" />
+    <ProjectReference Include="..\NextStore.Models\NetStore.Models.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,4 @@
-namespace NetCoreStore.Models
+namespace NetStore.Models
 {
     public class ErrorViewModel
     {
