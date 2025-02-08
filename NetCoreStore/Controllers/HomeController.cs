@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using NetCoreStore.Models;
+using NetStore.Models;
 
 namespace NetCoreStore.Controllers
 {

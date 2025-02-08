@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NetCoreStore.Data;
-using NetCoreStore.Models;
+using NetStore.DataAccess.Data;
+using NetStore.Models;
+
 
 namespace NetCoreStore.Controllers
 {
