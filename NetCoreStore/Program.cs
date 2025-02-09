@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using NetStore.DataAccess.Data;
+using NetStore.DataAccess.Repository;
+using NetStore.DataAccess.Repository.IRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +10,7 @@ builder.Services.AddControllersWithViews();
 // sqlserver
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 var app = builder.Build();
 

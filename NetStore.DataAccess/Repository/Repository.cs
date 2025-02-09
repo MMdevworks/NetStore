@@ -5,7 +5,7 @@ using NetStore.DataAccess.Repository.IRepository;
 
 namespace NetStore.DataAccess.Repository
 {
-    internal class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : class
     {
         private readonly ApplicationDbContext _db;
         internal DbSet<T> dbSet;
@@ -25,7 +25,7 @@ namespace NetStore.DataAccess.Repository
         public T Get(Expression<Func<T, bool>> filter)
         {
             IQueryable<T> query = dbSet;
-            query.Where(filter);
+            query = query.Where(filter);
             return query.FirstOrDefault();
         }
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NetStore.DataAccess.Data;
+using NetStore.DataAccess.Repository.IRepository;
 using NetStore.Models;
 
 
@@ -7,16 +8,16 @@ namespace NetCoreStore.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        public CategoryController(ApplicationDbContext db)
+        private readonly ICategoryRepository _catRepo;
+        public CategoryController(ICategoryRepository db)
         {
-            _db= db;
+            _catRepo= db;
         }
 
         // get all categories
         public IActionResult Index()
         {
-            List<Category> objCategoryList = _db.Categories.ToList();
+            List<Category> objCategoryList = _catRepo.GetAll().ToList();
             // pass it to view
             return View(objCategoryList);
         }
@@ -38,8 +39,8 @@ namespace NetCoreStore.Controllers
 
             if (ModelState.IsValid)
             {
-                _db.Categories.Add(obj);
-                _db.SaveChanges();
+                _catRepo.Add(obj);
+                _catRepo.Save();
                 TempData["success"] = "Category created successfully";
                 return RedirectToAction("Index");
             }
@@ -55,7 +56,7 @@ namespace NetCoreStore.Controllers
                 return NotFound();
             }
 
-            Category? categoryFromDb = _db.Categories.Find(id);
+            Category? categoryFromDb = _catRepo.Get(u=>u.Id==id);
             if (categoryFromDb == null)
             {
                 return NotFound();
@@ -75,8 +76,8 @@ namespace NetCoreStore.Controllers
 
             if (ModelState.IsValid)
             {
-                _db.Categories.Update(obj);
-                _db.SaveChanges();
+                _catRepo.Update(obj);
+                _catRepo.Save();
                 TempData["success"] = "Category has been edited successfully";
                 return RedirectToAction("Index");
             }
@@ -91,7 +92,7 @@ namespace NetCoreStore.Controllers
                 return NotFound();
             }
 
-            Category? categoryFromDb = _db.Categories.Find(id);
+            Category? categoryFromDb = _catRepo.Get(u => u.Id == id);
 
             if (categoryFromDb == null)
             {
@@ -104,14 +105,14 @@ namespace NetCoreStore.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteCategory(int? id)
         {
-            Category obj = _db.Categories.Find(id);
+            Category obj = _catRepo.Get(u=>u.Id==id);
             if (obj == null)
             {
                 return NotFound();
             }
 
-            _db.Categories.Remove(obj);
-            _db.SaveChanges();
+            _catRepo.Remove(obj);
+            _catRepo.Save();
             TempData["success"] = "Category deleted successfully";
             return RedirectToAction("Index");          
         }
