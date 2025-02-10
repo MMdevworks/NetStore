@@ -1,0 +1,78 @@
+﻿@model Product
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary m-lg-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white">New Product</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body p-4">
+        <form method="post" class="row">
+            <div class="border p-3">
+                @* alternate validation display *@
+                @* <div asp-validation-summary="All"></div> *@
+
+                <div class="mb-3 row px-3">
+                    <label asp-for="ProductName" class="p-1"></label>
+                    <input asp-for="ProductName" class="form-control" />
+                    <span asp-validation-for="ProductName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 row px-3">
+                    <label asp-for="Description" class="p-1"></label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 row px-3">
+                    <label asp-for="Brand" class="p-1"></label>
+                    <input asp-for="Brand" class="form-control" />
+                    <span asp-validation-for="Brand" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 row px-3">
+                    <label asp-for="ListPrice" class="p-1"></label>
+                    <input asp-for="ListPrice" class="form-control" />
+                    <span asp-validation-for="ListPrice" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 row px-3">
+                    <label asp-for="Price" class="p-1"></label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 row px-3">
+                    <label asp-for="Price2" class="p-1"></label>
+                    <input asp-for="Price2" class="form-control" />
+                    <span asp-validation-for="Price2" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 row px-3">
+                    <label asp-for="Price3" class="p-1"></label>
+                    <input asp-for="Price3" class="form-control" />
+                    <span asp-validation-for="Price3" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-6 col-md-3">
+                        <button type="submit" class="btn btn-primary form-control">Create</button>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <a asp-controller="Product" asp-action="Index" class="btn btn-secondary form-control">Return to List</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@* op jquery for client side validation, before sending *@
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
