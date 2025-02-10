@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetStore.DataAccess.Data;
 
@@ -10,9 +11,11 @@ using NetStore.DataAccess.Data;
 namespace NetStore.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250210210824_foreignKeyForProdctCategConnection")]
+    partial class foreignKeyForProdctCategConnection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,10 +84,6 @@ namespace NetStore.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<double>("ListPrice")
                         .HasColumnType("float");
 
@@ -114,7 +113,6 @@ namespace NetStore.DataAccess.Migrations
                             Brand = "Organic Farms",
                             CategoryId = 1,
                             Description = "Red Delicious",
-                            ImageUrl = "",
                             ListPrice = 1.5,
                             Price = 1.0,
                             Price2 = 0.75,
@@ -127,7 +125,6 @@ namespace NetStore.DataAccess.Migrations
                             Brand = "Organic Farms",
                             CategoryId = 1,
                             Description = "Tangy Sweet",
-                            ImageUrl = "",
                             ListPrice = 1.25,
                             Price = 1.0,
                             Price2 = 0.75,
@@ -140,7 +137,6 @@ namespace NetStore.DataAccess.Migrations
                             Brand = "Organic Farms",
                             CategoryId = 2,
                             Description = "Yellow crisp",
-                            ImageUrl = "",
                             ListPrice = 1.0,
                             Price = 1.0,
                             Price2 = 0.75,
@@ -153,7 +149,6 @@ namespace NetStore.DataAccess.Migrations
                             Brand = "The RedMill",
                             CategoryId = 3,
                             Description = "Chewy whole grain",
-                            ImageUrl = "",
                             ListPrice = 1.0,
                             Price = 1.0,
                             Price2 = 0.75,

@@ -1,0 +1,91 @@
+﻿@model ProductVM
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary m-lg-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white">New Product</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body p-4">
+        <form method="post" class="row">
+            <div class="border p-3">
+                @* alternate validation display *@
+                @* <div asp-validation-summary="All"></div> *@
+
+                <div class="mb-3 row px-3">
+                    <label asp-for="Product.ProductName" class="p-1"></label>
+                    <input asp-for="Product.ProductName" class="form-control" />
+                    <span asp-validation-for="Product.ProductName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 row px-3">
+                    <label asp-for="Product.Description" class="p-1"></label>
+                    <textarea asp-for="Product.Description" class="form-control"></textarea>
+                    <span asp-validation-for="Product.Description" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 row px-3">
+                    <label asp-for="Product.Brand" class="p-1"></label>
+                    <input asp-for="Product.Brand" class="form-control" />
+                    <span asp-validation-for="Product.Brand" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 row px-3">
+                    <label asp-for="Product.ListPrice" class="p-1"></label>
+                    <input asp-for="Product.ListPrice" class="form-control" />
+                    <span asp-validation-for="Product.ListPrice" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 row px-3">
+                    <label asp-for="Product.Price" class="p-1"></label>
+                    <input asp-for="Product.Price" class="form-control" />
+                    <span asp-validation-for="Product.Price" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 row px-3">
+                    <label asp-for="Product.Price2" class="p-1"></label>
+                    <input asp-for="Product.Price2" class="form-control" />
+                    <span asp-validation-for="Product.Price2" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 row px-3">
+                    <label asp-for="Product.Price3" class="p-1"></label>
+                    <input asp-for="Product.Price3" class="form-control" />
+                    <span asp-validation-for="Product.Price3" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 row px-3">
+                    <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-select">
+                        <option disabled selected>--Select Category--</option>
+                    </select>
+                    <label asp-for="Product.CategoryId" class="p-1"></label>
+                    <span asp-validation-for="Product.Price3" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 row px-3">
+                    <label asp-for="Product.ImageUrl" class="p-1"></label>
+                    <input type="file" class="form-control" />
+                </div>
+
+                <div class="row">
+                    <div class="col-6 col-md-3">
+                        <button type="submit" class="btn btn-primary form-control">Create</button>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <a asp-controller="Product" asp-action="Index" class="btn btn-secondary form-control">Return to List</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@* op jquery for client side validation, before sending *@
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
