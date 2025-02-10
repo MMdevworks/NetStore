@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using NetStore.DataAccess.Data;
 using NetStore.DataAccess.Repository.IRepository;
 using NetStore.Models;
+using NetStore.Models.ViewModels;
 
 
 namespace NetCoreStore.Areas.Admin.Controllers
@@ -26,28 +28,46 @@ namespace NetCoreStore.Areas.Admin.Controllers
         // show create product view
         public IActionResult Create()
         {
-            return View();
+            ProductVM productVM = new()
+            {
+                CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                }),
+                Product = new Product() 
+            };
+
+            return View(productVM);
         }
 
         // create product in db, ensure Title Case 
         [HttpPost]
-        public IActionResult Create(Product obj)
+        public IActionResult Create(ProductVM pvmobj)
         {
-            obj.ProductName = obj.ProductName.Trim();
+            pvmobj.Product.ProductName = pvmobj.Product.ProductName.Trim();
 
-            if (!string.IsNullOrWhiteSpace(obj.ProductName))
+            if (!string.IsNullOrWhiteSpace(pvmobj.Product.ProductName))
             {
-                obj.ProductName = string.Join(" ", obj.ProductName.Split(' ').Select(word => char.ToUpper(word[0]) + word.Substring(1).ToLower()));
+                pvmobj.Product.ProductName = string.Join(" ", pvmobj.Product.ProductName.Split(' ').Select(word => char.ToUpper(word[0]) + word.Substring(1).ToLower()));
             }
 
             if (ModelState.IsValid)
             {
-                _unitOfWork.Product.Add(obj);
+                _unitOfWork.Product.Add(pvmobj.Product);
                 _unitOfWork.Save();
                 TempData["success"] = "Product created successfully";
                 return RedirectToAction("Index");
             }
-            return View();
+            else
+            {
+                pvmobj.CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                });
+            return View(pvmobj);
+            }
         }
 
         // ---- Edit ----

@@ -34,7 +34,8 @@ namespace NetStore.DataAccess.Data
                     Price = 1.00, 
                     Price2 = .75, 
                     Price3 = .50,
-                    CategoryId = 1
+                    CategoryId = 1,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -46,7 +47,8 @@ namespace NetStore.DataAccess.Data
                     Price = 1.00,
                     Price2 = .75,
                     Price3 = .50,
-                    CategoryId = 1
+                    CategoryId = 1,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -58,7 +60,8 @@ namespace NetStore.DataAccess.Data
                     Price = 1.00,
                     Price2 = .75,
                     Price3 = .50,
-                    CategoryId = 2
+                    CategoryId = 2,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -70,7 +73,8 @@ namespace NetStore.DataAccess.Data
                     Price = 1.00,
                     Price2 = .75,
                     Price3 = .50,
-                    CategoryId = 3
+                    CategoryId = 3,
+                    ImageUrl = ""
                 }
                 );
         }
