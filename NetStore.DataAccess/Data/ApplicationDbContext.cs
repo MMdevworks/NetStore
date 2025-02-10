@@ -33,7 +33,8 @@ namespace NetStore.DataAccess.Data
                     ListPrice = 1.50, 
                     Price = 1.00, 
                     Price2 = .75, 
-                    Price3 = .50 
+                    Price3 = .50,
+                    CategoryId = 1
                 },
                 new Product
                 {
@@ -44,7 +45,8 @@ namespace NetStore.DataAccess.Data
                     ListPrice = 1.25,
                     Price = 1.00,
                     Price2 = .75,
-                    Price3 = .50
+                    Price3 = .50,
+                    CategoryId = 1
                 },
                 new Product
                 {
@@ -55,7 +57,8 @@ namespace NetStore.DataAccess.Data
                     ListPrice = 1.00,
                     Price = 1.00,
                     Price2 = .75,
-                    Price3 = .50
+                    Price3 = .50,
+                    CategoryId = 2
                 },
                 new Product
                 {
@@ -66,7 +69,8 @@ namespace NetStore.DataAccess.Data
                     ListPrice = 1.00,
                     Price = 1.00,
                     Price2 = .75,
-                    Price3 = .50
+                    Price3 = .50,
+                    CategoryId = 3
                 }
                 );
         }

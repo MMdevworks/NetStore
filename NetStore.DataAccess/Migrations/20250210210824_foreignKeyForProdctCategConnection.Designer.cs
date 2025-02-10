@@ -11,8 +11,8 @@ using NetStore.DataAccess.Data;
 namespace NetStore.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250210182822_addProducts")]
-    partial class addProducts
+    [Migration("20250210210824_foreignKeyForProdctCategConnection")]
+    partial class foreignKeyForProdctCategConnection
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -77,6 +77,9 @@ namespace NetStore.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -99,6 +102,8 @@ namespace NetStore.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Products");
 
                     b.HasData(
@@ -106,6 +111,7 @@ namespace NetStore.DataAccess.Migrations
                         {
                             Id = 1,
                             Brand = "Organic Farms",
+                            CategoryId = 1,
                             Description = "Red Delicious",
                             ListPrice = 1.5,
                             Price = 1.0,
@@ -117,6 +123,7 @@ namespace NetStore.DataAccess.Migrations
                         {
                             Id = 2,
                             Brand = "Organic Farms",
+                            CategoryId = 1,
                             Description = "Tangy Sweet",
                             ListPrice = 1.25,
                             Price = 1.0,
@@ -128,6 +135,7 @@ namespace NetStore.DataAccess.Migrations
                         {
                             Id = 3,
                             Brand = "Organic Farms",
+                            CategoryId = 2,
                             Description = "Yellow crisp",
                             ListPrice = 1.0,
                             Price = 1.0,
@@ -139,6 +147,7 @@ namespace NetStore.DataAccess.Migrations
                         {
                             Id = 4,
                             Brand = "The RedMill",
+                            CategoryId = 3,
                             Description = "Chewy whole grain",
                             ListPrice = 1.0,
                             Price = 1.0,
@@ -146,6 +155,17 @@ namespace NetStore.DataAccess.Migrations
                             Price3 = 0.5,
                             ProductName = "Oatmeal"
                         });
+                });
+
+            modelBuilder.Entity("NetStore.Models.Product", b =>
+                {
+                    b.HasOne("NetStore.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

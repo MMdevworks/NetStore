@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NetStore.Models
 {
@@ -39,5 +40,9 @@ namespace NetStore.Models
         [Range(0.1, 10000)]
         public double Price3 { get; set; }
         //public int Stock { get; set; }
+
+        public int CategoryId { get; set; }
+        [ForeignKey("CategoryId")]
+        public Category Category { get; set; }
     }
 }
