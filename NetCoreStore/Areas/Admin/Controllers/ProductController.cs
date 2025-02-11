@@ -26,7 +26,7 @@ namespace NetCoreStore.Areas.Admin.Controllers
         }
 
         // show create product view
-        public IActionResult Create()
+        public IActionResult Upsert(int? id)
         {
             ProductVM productVM = new()
             {
@@ -37,13 +37,17 @@ namespace NetCoreStore.Areas.Admin.Controllers
                 }),
                 Product = new Product() 
             };
-
+            if (id == null || id == 0)
+            {
+                return View(productVM);
+            }
+            productVM.Product = _unitOfWork.Product.Get(u=>u.Id==id);
             return View(productVM);
         }
 
         // create product in db, ensure Title Case 
         [HttpPost]
-        public IActionResult Create(ProductVM pvmobj)
+        public IActionResult Upsert(ProductVM pvmobj, IFormFile? file)
         {
             pvmobj.Product.ProductName = pvmobj.Product.ProductName.Trim();
 
