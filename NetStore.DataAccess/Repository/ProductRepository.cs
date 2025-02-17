@@ -21,7 +21,22 @@ namespace NetStore.DataAccess.Repository
 
         public void Update(Product obj)
         {
-            _db.Products.Update(obj);
+            var objFromDb = _db.Products.FirstOrDefault(u => u.Id == obj.Id);
+            if (objFromDb != null)
+            {
+                objFromDb.ProductName = obj.ProductName;
+                objFromDb.Description = obj.Description;
+                objFromDb.Brand = obj.Brand;
+                objFromDb.ListPrice = obj.ListPrice;
+                objFromDb.Price = obj.Price;
+                objFromDb.Price2 = obj.Price2;
+                objFromDb.Price3 = obj.Price3;
+                objFromDb.CategoryId = obj.CategoryId;
+                if (obj.ImageUrl != null)
+                {
+                    objFromDb.ImageUrl = obj.ImageUrl;
+                }
+            }
         }
     }
 }

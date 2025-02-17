@@ -12,9 +12,11 @@ namespace NetCoreStore.Areas.Admin.Controllers
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        public ProductController(IUnitOfWork unitOfWork)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // get all products
@@ -47,30 +49,64 @@ namespace NetCoreStore.Areas.Admin.Controllers
 
         // create product in db, ensure Title Case 
         [HttpPost]
-        public IActionResult Upsert(ProductVM pvmobj, IFormFile? file)
+        public IActionResult Upsert(ProductVM pvm, IFormFile? file)
         {
-            pvmobj.Product.ProductName = pvmobj.Product.ProductName.Trim();
+            // parsing
+            pvm.Product.ProductName = pvm.Product.ProductName.Trim();
 
-            if (!string.IsNullOrWhiteSpace(pvmobj.Product.ProductName))
+            if (!string.IsNullOrWhiteSpace(pvm.Product.ProductName))
             {
-                pvmobj.Product.ProductName = string.Join(" ", pvmobj.Product.ProductName.Split(' ').Select(word => char.ToUpper(word[0]) + word.Substring(1).ToLower()));
+                pvm.Product.ProductName = string.Join(" ", pvm.Product.ProductName.Split(' ').Select(word => char.ToUpper(word[0]) + word.Substring(1).ToLower()));
             }
 
+            // adding img
             if (ModelState.IsValid)
             {
-                _unitOfWork.Product.Add(pvmobj.Product);
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                if (file != null)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    string productPath = Path.Combine(wwwRootPath, @"images\product");
+
+                    if(!string.IsNullOrEmpty(pvm.Product.ImageUrl))
+                    {
+                        var oldImagePath = Path.Combine(wwwRootPath, pvm.Product.ImageUrl.TrimStart('\\'));
+
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
+
+                    using ( var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+
+                    pvm.Product.ImageUrl = @"\images\product\" + fileName;
+                }
+
+                if(pvm.Product.Id == 0)
+                {
+                    _unitOfWork.Product.Add(pvm.Product);
+                }
+                else
+                {
+                    _unitOfWork.Product.Update(pvm.Product);
+                }
+
                 _unitOfWork.Save();
                 TempData["success"] = "Product created successfully";
                 return RedirectToAction("Index");
             }
             else
             {
-                pvmobj.CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+                pvm.CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
                 {
                     Text = u.Name,
                     Value = u.Id.ToString()
                 });
-            return View(pvmobj);
+            return View(pvm);
             }
         }
 
