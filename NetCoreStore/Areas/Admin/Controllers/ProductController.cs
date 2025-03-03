@@ -22,7 +22,7 @@ namespace NetCoreStore.Areas.Admin.Controllers
         // get all products
         public IActionResult Index()
         {
-            List<Product> objProductList = _unitOfWork.Product.GetAll().ToList();
+            List<Product> objProductList = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
             // pass it to view
             return View(objProductList);
         }
